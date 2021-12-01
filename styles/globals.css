@@ -2,8 +2,9 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: Noto Sans Korean, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  cursor: default;
 }
 
 a {
@@ -13,4 +14,14 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: Noto Sans Korean;
 }
+
+/* 로그인 모달창 x 버튼 삭제 */
+  .react-responsive-modal-modal {
+    border-radius: 15px;
+  }
+
+  /* .react-responsive-modal-closeButton { */
+          /* display : none !important; */
+  /* } */
