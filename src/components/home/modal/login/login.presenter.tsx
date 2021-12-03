@@ -2,41 +2,46 @@ import {
     LoginWrapper,
     LoginCheck,
     B,
-    Form,
+    // Form,
     LoginInputsWrapper,
-    LoginInputsItem
+    // LoginInputsItem
 } from "./login.styles"
 
-import { useForm } from "react-hook-form"
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
-import { shema } from '../../../../common/validation';
-
+import Form from "../../../../common/components/functions/form";
 import Input from "../../../../common/components/functions/input";
 import Button from "../../../../common/components/functions/button";
 
+import { antdModals } from "../../../../common/libraries/antd";
+import { firebaseApp } from "../../../../../pages/_app";
+import {
+    collection,
+    getFirestore,
+    addDoc
+} from "@firebase/firestore"
+import { useEffect } from "react";
+
 interface IProps {
-    closeModal : () => void
+    formState : any
+    register : any
+    setValue : ( name : string ) => () => void
 }
 
-export default function LoginUIPage({
-    closeModal
-
+function LoginUIPageComponents({
+    formState,
+    setValue,
+    register
 } : IProps) {
-    const { watch, handleSubmit, formState, getValues, setValue, trigger } = useForm({
-        resolver : yupResolver(shema.login)
-    });
 
-    // 로그인 전송하기
-    const submitLogin = ( data ) => {
-        console.log(data)
-    }
+    useEffect( () => {
+        async function testFireBase() {
+            const test = collection(getFirestore(firebaseApp), "test");
+            await addDoc(test, {
+                    name : "test"
+                })
+        }
+        testFireBase();
 
-    // 폼 데이터 저장하기
-    const saveFormData = ( name : string ) => () => {
-        const contents = (document.getElementsByName(name)[0] as HTMLInputElement ).value;
-
-        setValue(name, contents)
-    }
+    }, [])
 
     return(
         <LoginWrapper>
@@ -45,34 +50,60 @@ export default function LoginUIPage({
                 <div> <B>회원가입</B> 또는 <B>로그인</B>을 해주세요. </div>
             </LoginCheck>
 
-            <Form onSubmit={handleSubmit(submitLogin)}>
-                <LoginInputsWrapper>
-                    <Input 
-                        placeHolder="아이디를 입력해주세요."
-                        max={20}
-                        styles={{ marginBottom : "20px" }}
-                        onChange={() => saveFormData("id")}
-                        name="id"
-                    />
+            <LoginInputsWrapper>
+                <Input 
+                    placeHolder="아이디"
+                    max={20}
+                    styles={{ marginBottom : "20px" }}
+                    // onChange={() => setValue("id")}
+                    name="id"
+                    register={register}
+                    errorMessages={formState.errors?.id?.message}
+                />
 
-                    <Input 
-                        placeHolder="비밀번호를 입력해주세요."
-                        type="password"
-                        max={20}
-                        // isHookForm={ register("password") }
-                    />
+                <Input 
+                    placeHolder="비밀번호"
+                    type="password"
+                    max={20}
+                    // onChange={() => setValue("password")}
+                    name="password"
+                    register={register}
+                    errorMessages={formState.errors?.password?.message}
+                />
 
-                    <Button 
-                        title="로그인"
-                        submit={true}
-                        styles={{
-                            marginTop : '10px', width : '300px', border : "solid 1px #ababab", color : "#ababab",
-                            fontSize : '15px', borderRadius : '10px'
-                        }}
-                        isSubmit={formState.isSubmitted}
-                    />
-                </LoginInputsWrapper>
-            </Form>
+                <Button 
+                    title="로그인"
+                    submit={true}
+                    styles={{
+                        marginTop : '10px', width : '300px', border : "solid 1px #ababab", color : "#ababab",
+                        fontSize : '15px', borderRadius : '10px'
+                    }}
+                    isSubmit={formState.isValid}
+                    hoverStyles={{ filter : "drop-shadow(2px 4px 12px black)" }}
+                    hoverEvent={true}
+                    submitStyles={{ backgroundColor : 'rgb(87, 114, 255)', 'color' : 'white !important' }}
+                />
+            </LoginInputsWrapper>
         </LoginWrapper>
+    )
+}
+
+export default function LoginUIPage({
+    closeModal
+} : any) {
+    // 로그인 전송하기
+    const submitLogin = ( data ) => {
+        console.log(data)
+
+        antdModals("success", "123")
+    }
+
+    return(
+        <Form
+            onSubmit={submitLogin}
+            Components={LoginUIPageComponents}
+            yupName="login"
+            formDatas={["id", "password"]}
+        ></Form>
     )
 }

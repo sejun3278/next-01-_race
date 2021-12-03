@@ -5,6 +5,7 @@ import { MDBInput } from "mdb-react-ui-kit";
 
 import { StylesTypes } from "../../../types";
 import { UseFormRegisterReturn } from "react-hook-form";
+import { useEffect } from "react";
 
 interface IProps {
     placeHolder?: string
@@ -14,6 +15,8 @@ interface IProps {
     isHookForm?: UseFormRegisterReturn
     name?: string
     onChange?: ( name : string ) => () => void
+    errorMessages?: string
+    register?: any
 }
 
 export default function InputComponents({
@@ -23,19 +26,22 @@ export default function InputComponents({
     styles,
     isHookForm,
     onChange,
-    name
+    name,
+    errorMessages,
+    register
 } : IProps) {
-    console.log(onChange)
 
     return(
         <InputWrapper>
-            <Input label={placeHolder} 
+            <Input label={errorMessages ? errorMessages : placeHolder} 
                    type={type ? type : "text"}
                    maxLength={max}
                    style={styles}
                    isHookForm={isHookForm}
                    name={name}
                    onChange={onChange && onChange(name)}
+                   {...register(name)}
+                //    errorMessages={errorMessages || ""}
             />
         </InputWrapper>
     )
