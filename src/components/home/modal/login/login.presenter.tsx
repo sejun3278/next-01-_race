@@ -2,52 +2,32 @@ import {
     LoginWrapper,
     LoginCheck,
     B,
-    // Form,
     LoginInputsWrapper,
-    // LoginInputsItem
+    OtherWrapper,
+    OtherList,
+    Other,
+    NoticeSignup
 } from "./login.styles"
 
 import Form from "../../../../common/components/functions/form";
 import Input from "../../../../common/components/functions/input";
 import Button from "../../../../common/components/functions/button";
 
-import { antdModals } from "../../../../common/libraries/antd";
-import { firebaseApp } from "../../../../../pages/_app";
-import {
-    collection,
-    getFirestore,
-    addDoc
-} from "@firebase/firestore"
-import { useEffect } from "react";
-
-interface IProps {
-    formState : any
-    register : any
-    setValue : ( name : string ) => () => void
-}
+import { LoginUIPageComponentsIProps } from "./login.types";
+import { useContext } from "react";
+import { HomeContext } from "../../homeContext"
 
 function LoginUIPageComponents({
     formState,
-    setValue,
-    register
-} : IProps) {
-
-    useEffect( () => {
-        async function testFireBase() {
-            const test = collection(getFirestore(firebaseApp), "test");
-            await addDoc(test, {
-                    name : "test"
-                })
-        }
-        testFireBase();
-
-    }, [])
+    setValue
+} : LoginUIPageComponentsIProps) {
+    const { moveLoginPage } = useContext(HomeContext)
 
     return(
         <LoginWrapper>
             <LoginCheck>
                 <div> 비로그인 상태입니다. </div>
-                <div> <B>회원가입</B> 또는 <B>로그인</B>을 해주세요. </div>
+                <div> <B onClick={moveLoginPage("signup")}>계정 등록</B> 또는 <B>로그인</B>이 필요합니다. </div>
             </LoginCheck>
 
             <LoginInputsWrapper>
@@ -55,9 +35,8 @@ function LoginUIPageComponents({
                     placeHolder="아이디"
                     max={20}
                     styles={{ marginBottom : "20px" }}
-                    // onChange={() => setValue("id")}
+                    onChange={() => setValue("id")}
                     name="id"
-                    register={register}
                     errorMessages={formState.errors?.id?.message}
                 />
 
@@ -65,9 +44,8 @@ function LoginUIPageComponents({
                     placeHolder="비밀번호"
                     type="password"
                     max={20}
-                    // onChange={() => setValue("password")}
+                    onChange={() => setValue("password")}
                     name="password"
-                    register={register}
                     errorMessages={formState.errors?.password?.message}
                 />
 
@@ -75,7 +53,7 @@ function LoginUIPageComponents({
                     title="로그인"
                     submit={true}
                     styles={{
-                        marginTop : '10px', width : '300px', border : "solid 1px #ababab", color : "#ababab",
+                        marginTop : '10px', width : '350px', border : "solid 1px #ababab", color : "#ababab",
                         fontSize : '15px', borderRadius : '10px'
                     }}
                     isSubmit={formState.isValid}
@@ -84,20 +62,22 @@ function LoginUIPageComponents({
                     submitStyles={{ backgroundColor : 'rgb(87, 114, 255)', 'color' : 'white !important' }}
                 />
             </LoginInputsWrapper>
+
+            <OtherWrapper>
+                <OtherList>
+                    <Other type="button" onClick={moveLoginPage("signup")}> 계정 등록 </Other>
+                    <Other type="button"> 아이디 찾기 </Other>
+                    <Other type="button"> 비밀번호 찾기 </Other>
+                </OtherList>
+                <NoticeSignup type="button"> 아직 회원이 아니시라면, <B onClick={moveLoginPage("signup")}>계정 등록</B>을 통해 새로운 계정을 만들어보세요.</NoticeSignup>
+            </OtherWrapper>
         </LoginWrapper>
     )
 }
 
 export default function LoginUIPage({
-    closeModal
-} : any) {
-    // 로그인 전송하기
-    const submitLogin = ( data ) => {
-        console.log(data)
-
-        antdModals("success", "123")
-    }
-
+    submitLogin
+}) {
     return(
         <Form
             onSubmit={submitLogin}

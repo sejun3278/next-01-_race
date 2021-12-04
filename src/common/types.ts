@@ -5,6 +5,8 @@ export interface StylesTypes {
     color?: string
     borderRadius ?: string
     fontSize?: string
+    paddingLeft?: string
+    paddingRight?: string
     padding?: string
     filter?: string
     marginBottom?: string

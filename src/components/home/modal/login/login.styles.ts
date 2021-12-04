@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 
 export const LoginWrapper = styled.div`
-    width : 600px;
-    height : 600px;
 `
 
 export const LoginCheck = styled.div`
@@ -31,16 +29,38 @@ export const LoginInputsWrapper = styled.div`
     flex-direction : column;
     align-items : center;
     padding : 50px 0px;
+    padding-top : 50px;
 `
 
-export const Form = styled.form`
+export const OtherWrapper = styled.div`
+    border-top : solid 2px black;
+    display: flex;
+    flex-direction : column;
 
+    button {
+        border : none;
+        background : none;
+        font-size : 16px;
+        color : #ababab;
+    }
 `
 
-export const LoginInputsItem = styled.div`
-    
+export const OtherList = styled.div`
+    width : 100%;
+    display : flex;
+    justify-content : space-around;
+    padding : 10px 0px;
 `
 
-export const Input = styled.input`
+export const Other = styled.button`
+    cursor: pointer;
 
+    :hover {
+        color : black;
+    }
+`
+
+export const NoticeSignup = styled.button`
+    color : black !important;
+    cursor : default !important;
 `

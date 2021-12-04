@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
@@ -10,15 +10,17 @@ interface IProps {
     onSubmit : ( data : any ) => void
     yupName?: string
     formDatas?: Array<string>
+    props?: any
 }
 
 export default function HookFormPage({ 
     Components,
     onSubmit,
     yupName,
-    formDatas
+    formDatas,
+    props
 } : IProps) {
-    const { handleSubmit, formState, watch, register, setValue, trigger } = useForm({
+    const { handleSubmit, formState, register, setValue, trigger } = useForm({
         resolver : yupResolver(shema[yupName])
     });
 
@@ -47,6 +49,7 @@ export default function HookFormPage({
                 formState={formState}
                 setValue={_setValue}
                 register={register}
+                props={props}
             />
         </form>
     )

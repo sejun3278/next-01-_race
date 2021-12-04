@@ -1,19 +1,17 @@
 import HomeStartUIPage from "./start.presenter"
-
-export interface IProps {
-    toggleModal : () => void
-    loginModal : boolean
-}
+import { ContextTypes } from "../homeContext";
 
 export default function HomeStartContainerPage({
-    toggleModal,
-    loginModal
-} : IProps) {
+    toggleLoginModal,
+    openLoginModal,
+    moveLoginPage
+} : ContextTypes) {
 
     // 비로그인시에는 로그인창 띄우기
     const openModal = () => {
-        if( loginModal === false ) {
-            toggleModal();
+        if( openLoginModal === false ) {
+            toggleLoginModal();
+            moveLoginPage("login")();
         }
     }
 

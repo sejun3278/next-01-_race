@@ -30,6 +30,7 @@ export default function InputComponents({
     errorMessages,
     register
 } : IProps) {
+    const _register = register || function a() {}
 
     return(
         <InputWrapper>
@@ -40,7 +41,7 @@ export default function InputComponents({
                    isHookForm={isHookForm}
                    name={name}
                    onChange={onChange && onChange(name)}
-                   {...register(name)}
+                   {..._register(name)}
                 //    errorMessages={errorMessages || ""}
             />
         </InputWrapper>
@@ -52,7 +53,7 @@ const InputWrapper = styled.div`
 `
 
 const Input = styled(MDBInput)`
-    width : 300px;
+    width : 350px;
     height : 50px;
     padding-left : 10px;
     font-size : 15px;

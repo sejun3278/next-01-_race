@@ -1,8 +1,7 @@
 import '../styles/globals.css'
 import Head from "next/head";
 
-import { createContext, useState } from "react";
-const GlobalContext = createContext({});
+import GlobalContext from "../src/common/components/GlobalContext/globalContext";
 
 // 파이어베이스 설정
 import { initializeApp } from '@firebase/app';
@@ -23,12 +22,6 @@ import 'firebase/firestore'
 
 
 function MyApp({ Component, pageProps }) {
-  const [ userInfo, setUserInfo ] = useState({});
-
-  const value = {
-    userInfo,
-    setUserInfo
-  }
 
   return (
     <div>
@@ -40,9 +33,9 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
 
-      <GlobalContext.Provider value={value}>
+      <GlobalContext>
         <Component {...pageProps} />
-      </GlobalContext.Provider>
+      </GlobalContext>
     </div>
   )
 }

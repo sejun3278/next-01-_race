@@ -11,6 +11,10 @@ interface IProps {
     submit?: boolean
     isSubmit?: boolean
     submitStyles?: StylesTypes
+    icon?: string
+    reverse?: boolean
+    iconStyles?: StylesTypes
+    wrapperStyle?: StylesTypes
 }
 
 export default function ButtonComponents({
@@ -21,13 +25,22 @@ export default function ButtonComponents({
     clickEvent,
     submit,
     isSubmit,
-    submitStyles
+    submitStyles,
+    icon,
+    iconStyles,
+    reverse,
+    wrapperStyle
 } : IProps) {
     const buttonRef = useRef() as MutableRefObject<HTMLButtonElement>;
     let isSubmited = isSubmit !== undefined ? isSubmit : true;
 
     return(
-        <ButtonWrapper>        
+        <ButtonWrapper style={wrapperStyle}>   
+            {(icon && reverse) && 
+                <Icon alt='버튼 아이콘' src={icon} 
+                      style={iconStyles}
+                />
+            }     
             <Button 
                 ref={buttonRef}
                 style={styles}
@@ -41,6 +54,11 @@ export default function ButtonComponents({
             >
                 {title}
             </Button>
+            {(icon && !reverse) && 
+                <Icon alt='버튼 아이콘' src={icon} 
+                      style={iconStyles}
+                />
+            }
         </ButtonWrapper>
     )
 }
@@ -50,10 +68,14 @@ interface StylesProps {
     hoverEvent?: boolean
     isSubmit?: boolean
     submitStyles?: StylesTypes
+    reverse?: boolean
 }
 
 const ButtonWrapper = styled.div`
-    
+    display : flex;
+    ${ (props : StylesProps) => props.reverse && {
+        flexDirection : "row-reverse"
+    }}
 `
 
 const Button = styled.button`
@@ -87,4 +109,8 @@ const Button = styled.button`
             transition : 'all 0.3s'
         }};
     }
+`
+
+const Icon = styled.img`
+
 `
