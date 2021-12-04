@@ -2,7 +2,10 @@ import { firebaseApp } from "../../../pages/_app";
 import {
     collection,
     getFirestore,
-    addDoc
+    addDoc,
+    query,
+    where,
+    getDocs
 } from "@firebase/firestore"
 import { 
     getAuth, 
@@ -24,6 +27,20 @@ export const loginApi = {
     // 유저 생성하기
     createUser : async ( inputs : { id : string, password : string, nickname : string } ) => {
         const result = { success : false, data : { uid : "" } };
+
+        // 아이디 중복 체크하기
+        const overlapUserId = await loginApi.checkUserOverlap({ data : inputs.id }, "id");
+        if( overlapUserId ) {
+            antdModals("error", "이미 사용중인 아이디입니다.");
+            return result;
+        }
+
+        // 닉네임 중복 체크하기
+        const overlapNickname = await loginApi.checkUserOverlap({ data : inputs.nickname }, "nickname");
+        if( overlapNickname ) {
+            antdModals("error", "이미 사용중인 닉네임입니다.");
+            return result;
+        }
 
         await createUserWithEmailAndPassword(auth, `${inputs.id}@gmail.com`, inputs.password)
         .then( async(data) => {
@@ -48,13 +65,26 @@ export const loginApi = {
             id : inputs.id,
             nickname : inputs.nickname,
             win : 0,
-            lose : 0
+            lose : 0,
+            googleLogin : false
         })
     },
 
-    // 유저 닉네임 중복 체크
-    checkUserNickname : async( inputs : { nickname : string } ) => {
-        
+    // 중복 체크
+    checkUserOverlap : async( inputs : { data : string }, column : string ) => {
+        let overlap = false;
+
+        const overlapQuery = query( userTable, where(column, "==", inputs.data) );
+        const result = await getDocs( overlapQuery );
+        result?.forEach( el => {
+            const data = el.data();
+
+            if( data ) {
+                overlap = true;
+            }
+        })
+
+        return overlap;
     },
 
     // 로그인

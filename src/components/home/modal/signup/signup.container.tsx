@@ -11,7 +11,13 @@ export default function SignupContainerPage({
     const createUserInfo = async ( data : { 
         id : string, nickname : string, password : string, confirm : string
     }) => {
-        if( ing ) return antdModals("warning", "진행중입니다. 잠시만 기다려주세요.")
+        if( ing ) 
+            return antdModals("warning", "진행중입니다. 잠시만 기다려주세요.");
+
+        // 비밀번호와 비밀번호 확인 일치여부
+        if( data.password !== data.confirm )
+            return antdModals("error", "비밀번호가 일치하지 않습니다.");
+
         if( !ing ) {
             ing = true;
             const result = await loginApi.createUser({ id : data.id, password : data.password, nickname : data.nickname });
