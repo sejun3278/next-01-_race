@@ -12,8 +12,9 @@ export default function HomeStartUIPage({
     openModal
 } : IProps) {
     const commonStyles : StylesTypes = {
-        width : '250px',
-        height : '62px'
+        width : '350px',
+        height : '62px',
+        color : 'black'
     }
 
     return(

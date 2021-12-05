@@ -20,7 +20,7 @@ export default function HookFormPage({
     formDatas,
     props
 } : IProps) {
-    const { handleSubmit, formState, register, setValue, trigger } = useForm({
+    const { handleSubmit, formState, register, setValue, trigger, watch } = useForm({
         resolver : yupResolver(shema[yupName])
     });
 
@@ -34,8 +34,8 @@ export default function HookFormPage({
     }, [formDatas])
 
     // 데이터 수정하기
-    const _setValue = ( name : string ) => () => {
-        const contents = (document.getElementsByName(name)[0] as HTMLInputElement ).value;
+    const _setValue = ( name : string, content?: string ) => () => {
+        const contents = content || (document.getElementsByName(name)[0] as HTMLInputElement ).value;
 
         setValue(name, contents);
         trigger(name);
@@ -50,6 +50,7 @@ export default function HookFormPage({
                 setValue={_setValue}
                 register={register}
                 props={props}
+                watch={watch}
             />
         </form>
     )

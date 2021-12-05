@@ -17,6 +17,7 @@ interface IProps {
     onChange?: ( name : string ) => () => void
     errorMessages?: string
     register?: any
+    value?: string
 }
 
 export default function InputComponents({
@@ -28,7 +29,8 @@ export default function InputComponents({
     onChange,
     name,
     errorMessages,
-    register
+    register,
+    value
 } : IProps) {
     const _register = register || function a() {}
 
@@ -42,6 +44,7 @@ export default function InputComponents({
                    name={name}
                    onChange={onChange && onChange(name)}
                    {..._register(name)}
+                   value={value}
                 //    errorMessages={errorMessages || ""}
             />
         </InputWrapper>

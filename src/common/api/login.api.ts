@@ -14,6 +14,7 @@ import {
 } from "firebase/auth"
 
 import { antdModals } from "../libraries/antd";
+import { SaveUserInfo } from "../../components/home/homeContext";
 
 const userTable = collection(getFirestore(firebaseApp), "user");
 const auth = getAuth();
@@ -25,13 +26,13 @@ export const loginApi = {
     },
 
     // 유저 생성하기
-    createUser : async ( inputs : { id : string, password : string, nickname : string } ) => {
+    createUser : async ( inputs : SaveUserInfo ) => {
         const result = { success : false, data : { uid : "" } };
 
         // 아이디 중복 체크하기
-        const overlapUserId = await loginApi.checkUserOverlap({ data : inputs.id }, "id");
+        const overlapUserId = await loginApi.checkUserOverlap({ data : inputs.email }, "email");
         if( overlapUserId ) {
-            antdModals("error", "이미 사용중인 아이디입니다.");
+            antdModals("error", "이미 사용중인 이메일입니다.");
             return result;
         }
 
@@ -42,16 +43,20 @@ export const loginApi = {
             return result;
         }
 
-        await createUserWithEmailAndPassword(auth, `${inputs.id}@gmail.com`, inputs.password)
+        await createUserWithEmailAndPassword(auth, inputs.email, inputs.password)
         .then( async(data) => {
             result.success = true;
-            result.data.uid = data.user.uid;
+            // uid 추가하기
+            inputs.uid = data?.user.uid;
 
-            await loginApi.createUserInfo({ uid : data.user.uid, id : inputs.id, nickname : inputs.nickname })
+            // 비밀번호 제거
+            delete inputs.password;
+
+            await loginApi.createUserInfo(inputs)
         })
         .catch( err => {
             if( JSON.stringify(err).includes('auth/email-already-in-use') ) {
-                antdModals("error", "이미 사용중인 아이디입니다.");
+                antdModals("error", "이미 사용중인 이메일입니다.");
             }
         })
 
@@ -59,15 +64,8 @@ export const loginApi = {
     },
 
     // 유저 정보 저장하기
-    createUserInfo : async( inputs : { uid : string, id : string, nickname : string } ) => {
-        await addDoc(userTable, {
-            uid : inputs.uid,
-            id : inputs.id,
-            nickname : inputs.nickname,
-            win : 0,
-            lose : 0,
-            googleLogin : false
-        })
+    createUserInfo : async( inputs : SaveUserInfo ) => {
+        await addDoc(userTable, inputs);
     },
 
     // 중복 체크
@@ -88,10 +86,10 @@ export const loginApi = {
     },
 
     // 로그인
-    findUserLogin : async ( inputs : { id : string, password : string } ) => {
+    findUserLogin : async ( inputs : { email : string, password : string } ) => {
         let uid = ""
 
-        await signInWithEmailAndPassword( auth, loginApi.getUserEmail(inputs.id), inputs.password )
+        await signInWithEmailAndPassword( auth, inputs.email, inputs.password )
         .then( res => {
             uid = res.user.uid;
         })

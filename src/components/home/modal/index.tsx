@@ -1,16 +1,11 @@
 import LoginContainerPage from "./login/login.container"
-import SignupContainerPage from "./signup/signup.container";
+import SignupContainerPage from "./signup";
 import styled from "@emotion/styled";
 
 import 'react-responsive-modal/styles.css';
 import { Modal } from "react-responsive-modal";
 
-export interface IProps {
-    toggleModal : () => void
-    loginPage : string
-    openLoginModal : boolean
-    moveLoginPage : ( page : string ) => () => void
-}
+import { ContextTypes } from "../homeContext";
 
 const styles = {
     modalContainer : {
@@ -21,33 +16,33 @@ const styles = {
 }
 
 export default function LoginAndSignupModalPage({
-    toggleModal,
+    toggleLoginModal,
     loginPage,
     openLoginModal,
-    moveLoginPage
-} : IProps) {
+    moveLoginPage,
+    _saveUserInfo
+} : ContextTypes) {
     
     return(
         <>
         {openLoginModal &&
             <Modal
                 open={openLoginModal}
-                onClose={toggleModal}
+                onClose={toggleLoginModal}
                 styles={styles}
                 closeOnOverlayClick={false}
             >
                 <ModalWrapper>
-                    {loginPage === 'login' &&
+                    {loginPage.includes('login') &&
                         <LoginContainerPage 
-                            loginModal={openLoginModal}
-                            toggleModal={toggleModal}
-                            moveLoginPage={moveLoginPage}
                         />
                     }
                     
-                    {loginPage === 'signup' &&
+                    {loginPage.includes('signup') &&
                         <SignupContainerPage 
                             moveLoginPage={moveLoginPage}
+                            loginPage={loginPage}
+                            _saveUserInfo={_saveUserInfo}
                         />
                     }
                 </ModalWrapper>

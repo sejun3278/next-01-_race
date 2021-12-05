@@ -90,6 +90,8 @@ const Button = styled.button`
     border-radius : 20px;
     font-weight : 500;
     cursor: ${ (props) => props.isSubmit ? "pointer" : "no-drop" };
+    border : solid 1px #ababab;
+    color : #ababab;
 
     ${ (props) => props.hoverEvent && {
         transition : 'all 0.3s'
