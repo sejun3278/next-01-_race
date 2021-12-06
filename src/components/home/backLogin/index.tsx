@@ -28,10 +28,10 @@ export default function BackLoginComponents() {
         <>
             <ButtonComponents 
                 title="Login"
-                styles={{ border : "none", backgroundColor : "white", color : 'black', fontSize : "18px" }}
+                styles={{ border : "none", backgroundColor : "white", color : 'black', fontSize : "18px", marginBottom : "0px" }}
                 reverse={true}
                 icon={`/images/commons/arrow/arrow_left_black.png`}
-                iconStyles={{ width : '12px', height : '12px' }}
+                iconStyles={{ width : '12px', height : '12px', marginRight : "8px" }}
                 wrapperStyle={{ height : '40px' }}
                 clickEvent={backLoginPage}
             />

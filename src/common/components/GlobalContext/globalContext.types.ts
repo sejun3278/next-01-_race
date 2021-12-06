@@ -7,4 +7,6 @@ export interface GlobalContextIProps {
     setLoginPage : Dispatch<SetStateAction<{}>>
     openLoginModal : boolean
     toggleLoginModal : () => void
+    loading : string
+    toggleLoading : ( str : string ) => void
 }

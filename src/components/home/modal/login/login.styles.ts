@@ -36,6 +36,7 @@ export const OtherWrapper = styled.div`
     border-top : solid 2px black;
     display: flex;
     flex-direction : column;
+    padding-top : 15px;
 
     button {
         border : none;

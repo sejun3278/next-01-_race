@@ -45,6 +45,7 @@ export default function InputComponents({
                    onChange={onChange && onChange(name)}
                    {..._register(name)}
                    value={value}
+                   autocomplete={type === "password" && "on" }
                 //    errorMessages={errorMessages || ""}
             />
         </InputWrapper>

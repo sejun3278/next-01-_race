@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const TitleWrapper = styled.div`
     padding : 200px 0px;
-    padding-bottom : 150px;
+    padding-bottom : 100px;
     display : flex;
     flex-direction : column;
     justify-content : center;

@@ -92,6 +92,7 @@ export default function homeContextPage({
                 openLoginModal={openLoginModal}
                 toggleLoginModal={toggleLoginModal} 
                 moveLoginPage={moveLoginPage}
+                resetUserInfo={resetUserInfo}
             />
             <LoginAndSignupModalPage 
                 toggleLoginModal={toggleLoginModal}
@@ -111,4 +112,5 @@ export interface ContextTypes {
     loginPage?: string
     moveLoginPage?: ( page : string ) => () => void
     _saveUserInfo?: ( inputs : SaveUserInfo ) => void
+    resetUserInfo?: () => void
 }

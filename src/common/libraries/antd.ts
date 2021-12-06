@@ -3,8 +3,8 @@ import "antd/dist/antd.css"
 
 export const antdModals = ( type : string, message : string,
         confirmData?: { title : string, contents : string, closeText?: string, okText?: string,
-                        onOk?: any
-        }
+                        onOk?: any },
+        disables?: boolean
     ) => {
     // type : info, success, error, warning
 

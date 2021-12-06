@@ -35,31 +35,27 @@ export default function ButtonComponents({
     let isSubmited = isSubmit !== undefined ? isSubmit : true;
 
     return(
-        <ButtonWrapper style={wrapperStyle}>   
-            {(icon && reverse) && 
-                <Icon alt='버튼 아이콘' src={icon} 
-                      style={iconStyles}
-                />
-            }     
-            <Button 
-                ref={buttonRef}
-                style={styles}
-                hoverStyles={isSubmited ? hoverStyles : {}}
-                hoverEvent={isSubmited ? hoverEvent : false}
-                onClick={clickEvent ? clickEvent : undefined}
-                type={submit ? 'submit' : 'button' }
-                isSubmit={isSubmited}
-                // disabled={!isSubmited}
-                submitStyles={submitStyles}
-            >
-                {title}
-            </Button>
-            {(icon && !reverse) && 
-                <Icon alt='버튼 아이콘' src={icon} 
-                      style={iconStyles}
+        <Button 
+            ref={buttonRef}
+            style={styles}
+            hoverStyles={isSubmited ? hoverStyles : {}}
+            hoverEvent={isSubmited ? hoverEvent : false}
+            type={submit ? 'submit' : 'button' }
+            isSubmit={isSubmited}
+            // disabled={!isSubmited}
+            submitStyles={submitStyles}
+            onClick={clickEvent ? clickEvent : undefined}
+            reverse={reverse}
+        >
+            <div> {title} </div>
+            { icon &&
+                <Icon 
+                    alt="아이콘 이미지"
+                    src={icon}
+                    style={iconStyles}
                 />
             }
-        </ButtonWrapper>
+        </Button>
     )
 }
 
@@ -71,17 +67,14 @@ interface StylesProps {
     reverse?: boolean
 }
 
-const ButtonWrapper = styled.div`
-    display : flex;
-    ${ (props : StylesProps) => props.reverse && {
-        flexDirection : "row-reverse"
-    }}
-`
-
 const Button = styled.button`
     display : flex;
     align-items : center;
     justify-content : center;
+    ${ (props) => props.reverse && {
+        'flexDirection' : 'row-reverse'
+    }};
+
     padding : 7px 15px;
     margin-bottom : 40px;
     font-size : 20px;
@@ -104,7 +97,9 @@ const Button = styled.button`
 
     :hover {
         ${ (props : StylesProps) => props.hoverStyles && {
-            filter : props.hoverStyles.filter
+            filter : props.hoverStyles.filter,
+            backgroundColor : props.hoverStyles.backgroundColor,
+            color : props.hoverStyles.color
         }}
 
         ${ (props) => props.hoverEvent && {

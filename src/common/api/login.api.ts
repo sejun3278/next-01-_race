@@ -29,18 +29,22 @@ export const loginApi = {
     createUser : async ( inputs : SaveUserInfo ) => {
         const result = { success : false, data : { uid : "" } };
 
-        // 아이디 중복 체크하기
-        const overlapUserId = await loginApi.checkUserOverlap({ data : inputs.email }, "email");
-        if( overlapUserId ) {
-            antdModals("error", "이미 사용중인 이메일입니다.");
-            return result;
+        // 이메일 중복 체크하기
+        if( inputs.email ) {
+            const overlapUserId = await loginApi.checkUserOverlap({ data : inputs.email }, "email");
+            if( overlapUserId ) {
+                antdModals("error", "이미 사용중인 이메일입니다.");
+                return result;
+            }
         }
 
         // 닉네임 중복 체크하기
-        const overlapNickname = await loginApi.checkUserOverlap({ data : inputs.nickname }, "nickname");
-        if( overlapNickname ) {
-            antdModals("error", "이미 사용중인 닉네임입니다.");
-            return result;
+        if( inputs.nickname ) {
+            const overlapNickname = await loginApi.checkUserOverlap({ data : inputs.nickname }, "nickname");
+            if( overlapNickname ) {
+                antdModals("error", "이미 사용중인 닉네임입니다.");
+                return result;
+            }
         }
 
         await createUserWithEmailAndPassword(auth, inputs.email, inputs.password)
@@ -102,4 +106,18 @@ export const loginApi = {
 
         return uid;
     },
+
+    // 구글 로그인 시, 계정 생성하기
+    createGoogleLogin : async ( inputs : { email : string, uid : string, name : string, phone : string } ) => {
+        // 등록한 계정이 있는지 확인한다.
+        const checkUserInfo = await loginApi.checkUserOverlap({ data : inputs.uid }, "uid");
+
+        // 있을 경우에는 로그인 완료
+        if( checkUserInfo ) return true;
+        
+        // 없을 경우 기본 정보는 추가한다.
+        // loginApi.createUserInfo( inputs )
+
+        return false;
+    }
 }

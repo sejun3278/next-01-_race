@@ -12,6 +12,7 @@ import {
 import Form from "../../../../common/components/functions/form";
 import Input from "../../../../common/components/functions/input";
 import Button from "../../../../common/components/functions/button";
+import GoogleLoginButton from "../../../../common/components/functions/googleLogin";
 
 import { LoginUIPageComponentsIProps } from "./login.types";
 import { useContext } from "react";
@@ -33,7 +34,7 @@ function LoginUIPageComponents({
             <LoginInputsWrapper>
                 <Input 
                     placeHolder="이메일"
-                    max={20}
+                    max={30}
                     styles={{ marginBottom : "20px" }}
                     onChange={() => setValue("email")}
                     name="email"
@@ -53,13 +54,16 @@ function LoginUIPageComponents({
                     title="로그인"
                     submit={true}
                     styles={{
-                        marginTop : '10px', width : '350px', fontSize : '15px', borderRadius : '10px'
+                        marginTop : '10px', width : '350px', fontSize : '15px', borderRadius : '10px',
+                        marginBottom : "20px"
                     }}
                     isSubmit={formState.isValid}
                     hoverStyles={{ filter : "drop-shadow(2px 4px 12px black)" }}
                     hoverEvent={true}
                     submitStyles={{ backgroundColor : 'rgb(87, 114, 255)', 'color' : 'white !important' }}
                 />
+
+                <GoogleLoginButton />
             </LoginInputsWrapper>
 
             <OtherWrapper>

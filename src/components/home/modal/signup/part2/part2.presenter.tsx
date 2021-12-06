@@ -44,7 +44,7 @@ function SignupPart2UIComponentsPage({
                     placeHolder="전화번호"
                     name="phone"
                     type="text"
-                    max={14}
+                    max={13}
                     value={watch("phone")}
                     onChange={() => phoneValidate(setValue)}
                 />

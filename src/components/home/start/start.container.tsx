@@ -4,12 +4,14 @@ import { ContextTypes } from "../homeContext";
 export default function HomeStartContainerPage({
     toggleLoginModal,
     openLoginModal,
-    moveLoginPage
+    moveLoginPage,
+    resetUserInfo
 } : ContextTypes) {
 
     // 비로그인시에는 로그인창 띄우기
     const openModal = () => {
         if( openLoginModal === false ) {
+            resetUserInfo();
             toggleLoginModal();
             moveLoginPage("login")();
         }

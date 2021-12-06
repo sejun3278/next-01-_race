@@ -1,11 +1,15 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
+import LoadingPage from "../loading";
+
 export const GlobalContext = createContext({
     userInfo : {},
     setUserInfo : ( _ : any ) => {},
     loginPage : "login",
     setLoginPage : ( _ : string) => {},
     openLoginModal : false,
-    toggleLoginModal : () => {}
+    toggleLoginModal : () => {},
+    loading : "",
+    toggleLoading : ( _ : string ) => {}
 });
 
 import { GlobalContextIProps } from "./globalContext.types";
@@ -20,10 +24,20 @@ export default function GlobalContextPage({
     const [ loginPage, setLoginPage ] = useState<string>("login");
     // 유저 정보 저장하기
     const [ userInfo, setUserInfo ] = useState({});
+    // 로딩 on/off
+    const [ loading, setLoading ] = useState<string>("");
 
     // 모달창 on /
     const toggleLoginModal = () => {
         setOpenLoginModal(prev => !prev);
+    }
+
+    // 로딩창 on / off
+    const toggleLoading = ( str : string ) => {
+        if( str ) {
+            return setLoading( str );
+        }
+        setLoading("");
     }
 
     const value : GlobalContextIProps = {
@@ -32,11 +46,18 @@ export default function GlobalContextPage({
       loginPage,
       setLoginPage,
       openLoginModal,
-      toggleLoginModal
+      toggleLoginModal,
+      loading,
+      toggleLoading
     }
 
     return(
         <GlobalContext.Provider value={value}>
+            { loading !== "" &&
+                <LoadingPage 
+                    loading={loading}
+                />
+            }
             {children}
         </GlobalContext.Provider>
     )

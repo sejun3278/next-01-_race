@@ -2,6 +2,7 @@ import SignupPart2UIPage from "./part2.presenter";
 
 import { useContext } from "react";
 import { HomeContext } from "../../../homeContext";
+import { GlobalContext } from "../../../../../common/components/GlobalContext/globalContext";
 
 import { loginApi } from "../../../../../common/api/login.api";
 import { antdModals } from "../../../../../common/libraries/antd";
@@ -9,7 +10,8 @@ import { antdModals } from "../../../../../common/libraries/antd";
 export default function SignupPart2ContainerPage({
     _saveUserInfo
 }) {
-    const { saveUserInfo } = useContext(HomeContext)
+    const { saveUserInfo } = useContext(HomeContext);
+    const { toggleLoading } = useContext(GlobalContext)
 
     let submit = false;
     const sumbit = async ( data : { nickname : string, name ?: string, phone ?: string } ) => {
@@ -24,11 +26,14 @@ export default function SignupPart2ContainerPage({
 
         // 새 계정 생성하기
         submit = true;
-        const createResult = await loginApi.createUser( inputs );
 
-        if( createResult.success ) {
-            return antdModals("success", "계정이 등록되었습니다.");
-        }
+        toggleLoading("asaasd")
+        // const createResult = await loginApi.createUser( inputs );
+
+        // console.log(createResult)
+        // if( createResult.success ) {
+        //     return antdModals("success", "계정이 등록되었습니다.");
+        // }
         submit = false;
     }
 

@@ -16,4 +16,5 @@ export interface StylesTypes {
     margin?: string
     border?: string
     borderColor?: string
+    borderBottom?: string
 }

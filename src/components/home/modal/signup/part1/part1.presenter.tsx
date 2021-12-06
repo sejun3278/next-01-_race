@@ -18,7 +18,7 @@ function SignupUIPageComponents({
             <Input placeHolder="이메일"
                     type="text"
                     name="email"
-                    max={20}
+                    max={30}
                     onChange={() => setValue("email")}
                     styles={{ ...inputStyles }}
                     errorMessages={formState.errors?.email?.message}

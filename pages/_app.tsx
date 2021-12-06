@@ -24,7 +24,7 @@ import 'firebase/firestore'
 function MyApp({ Component, pageProps }) {
 
   return (
-    <div>
+    <>
       <Head>
         <link
           href="/fonts/noto-sans-korean-webfont/css/noto-sans-korean.css"
@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }) {
       <GlobalContext>
         <Component {...pageProps} />
       </GlobalContext>
-    </div>
+    </>
   )
 }
 
