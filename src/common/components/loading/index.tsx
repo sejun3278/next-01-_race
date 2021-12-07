@@ -1,13 +1,25 @@
 import styled from "@emotion/styled";
-import { Spin, Alert } from "antd";
+import { Spin } from "antd";
+
+import { MutableRefObject, useEffect, useRef } from "react";
 
 export default function LoadingPage({
-    loading
+    loading,
 }) {
+    const ref = useRef() as MutableRefObject<HTMLDivElement>;
+    useEffect( () => {
+        if( loading ) {
+            ref.current.classList.add("show");
+
+        } else {
+            ref.current.classList.remove("show");
+        }
+    }, [ loading ])
+
     return(
         <LoadingWrapper>
-            <LoadingContents>
-                <Spin tip="Loading..." />
+            <LoadingContents ref={ref}>
+                <Spin tip={"...로딩 중"} />
                 <div dangerouslySetInnerHTML={{ __html : loading }}/>
             </LoadingContents>
         </LoadingWrapper>
@@ -21,10 +33,13 @@ const LoadingWrapper = styled.div`
     position : absolute;
     display : flex;
     flex-direction: column;
-    z-index : 1000;
+    z-index : 10000;
     background-color : rgba(0, 0, 0, 0.5);
     justify-content : center;
-    transform : opacity 0.5s;
+
+    .show {
+        opacity : 1.4;
+    }
 `
 
 const LoadingContents = styled.div`
@@ -37,6 +52,8 @@ const LoadingContents = styled.div`
     display : flex;
     flex-direction : column;
     align-items :center;
+    transition : all 0.6s;
+    opacity : 0;
 
     div {
         margin-top : 20px;

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { HomeContext } from "../../../../components/home/homeContext";
 
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { SaveUserInfo } from "../../GlobalContext/globalContext";
 
 import { antdModals } from '../../../libraries/antd';
 import { loginApi } from '../../../api/login.api';
@@ -12,7 +13,7 @@ export default function GoogleLoginButton() {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
 
-    const { saveUserInfo } = useContext(HomeContext)
+    const { saveUserInfo, _saveUserInfo, moveLoginPage, isGoogleLogin } = useContext(HomeContext)
 
     // 구글 팝업 로그인
     const googleLogin = async () => {
@@ -32,7 +33,16 @@ export default function GoogleLoginButton() {
                 phone : result.user.phoneNumber || ""
             })
 
-            console.log(craeteUserInfo)
+            // 유저 정보 가져오기
+            const getUserInfo : SaveUserInfo = await loginApi.getUserInfo(result.user.email);
+            _saveUserInfo( getUserInfo );
+            isGoogleLogin();
+            
+            if( getUserInfo?.nickname === "" ) {
+                // 닉네임이 설정되지 않을 경우
+                antdModals("info", "닉네임을 설정해주세요.");
+                moveLoginPage("signup/part2")();
+            }
         })
         .catch( err => {
             GoogleAuthProvider.credentialFromError(err);

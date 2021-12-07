@@ -1,28 +1,5 @@
 import { createContext, useState } from "react";
-
-const initUserInfo : SaveUserInfo = {
-    uid : "",
-    email : "",
-    password : "",
-    name : "",
-    nickname : "",
-    phone : "",
-    win : 0,
-    lose : 0,
-    googleUid : ""
-}
-
-export interface SaveUserInfo {
-    uid?: string
-    email?: string
-    password?: string
-    nickname?: string
-    name?: string
-    phone?: string
-    win?: number
-    lose?: number
-    googleUid?: string
-}
+import { initUserInfo, SaveUserInfo } from "../../../common/components/GlobalContext/globalContext";
 
 export const HomeContext = createContext({
     loginPage : "login",
@@ -31,7 +8,9 @@ export const HomeContext = createContext({
     moveLoginPage : ( _ : string ) => () => {},
     saveUserInfo : initUserInfo,
     _saveUserInfo : ( _ : SaveUserInfo ) => {},
-    resetUserInfo : () => {}
+    resetUserInfo : () => {},
+    googleLogin : false,
+    isGoogleLogin : () => {}
 });
 
 import HomeTitleUIPage from "../title/HomeTitle.presenter"
@@ -47,6 +26,8 @@ export default function homeContextPage({
     const [ loginPage, setLoginPage ] = useState<string>("login");
     // 유저 데이터 저장
     const [ saveUserInfo, setSaveUserInfo ] = useState<SaveUserInfo>(initUserInfo);
+    // 구글 로그인 여부
+    const [ googleLogin, setGoogleLogin ] = useState<boolean>(false);
 
     // 로그인 모달창 열고(true) 닫기(false);
     const toggleLoginModal = () => {
@@ -77,6 +58,11 @@ export default function homeContextPage({
         setSaveUserInfo( initUserInfo );
     }
 
+    // 구글 로그인
+    const isGoogleLogin = () => {
+        setGoogleLogin( true );
+    }
+
     return(
         <HomeContext.Provider value={{
             openLoginModal,
@@ -85,7 +71,9 @@ export default function homeContextPage({
             moveLoginPage,
             saveUserInfo,
             _saveUserInfo,
-            resetUserInfo
+            resetUserInfo,
+            googleLogin,
+            isGoogleLogin
         }}>
             <HomeTitleUIPage />
             <HomeStartPage 

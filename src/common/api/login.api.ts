@@ -5,47 +5,39 @@ import {
     addDoc,
     query,
     where,
-    getDocs
+    getDocs,
+    updateDoc
 } from "@firebase/firestore"
 import { 
     getAuth, 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
 } from "firebase/auth"
 
 import { antdModals } from "../libraries/antd";
-import { SaveUserInfo } from "../../components/home/homeContext";
+import { SaveUserInfo } from "../components/GlobalContext/globalContext";
 
 const userTable = collection(getFirestore(firebaseApp), "user");
 const auth = getAuth();
 
 // 로그인 api
 export const loginApi = {
-    getUserEmail : ( id : string ) => {
-        return `${id}@gmail.com`
+
+    // 유저 정보 가져오기
+    getUserInfo : async ( email : string ) => {
+        let userInfo = {};
+
+        const userInfoQuery = query( userTable, where("email", "==", email) );
+        (await getDocs( userInfoQuery )).forEach( el => {
+            userInfo = el.data();
+        })
+
+        return userInfo;
     },
 
     // 유저 생성하기
     createUser : async ( inputs : SaveUserInfo ) => {
         const result = { success : false, data : { uid : "" } };
-
-        // 이메일 중복 체크하기
-        if( inputs.email ) {
-            const overlapUserId = await loginApi.checkUserOverlap({ data : inputs.email }, "email");
-            if( overlapUserId ) {
-                antdModals("error", "이미 사용중인 이메일입니다.");
-                return result;
-            }
-        }
-
-        // 닉네임 중복 체크하기
-        if( inputs.nickname ) {
-            const overlapNickname = await loginApi.checkUserOverlap({ data : inputs.nickname }, "nickname");
-            if( overlapNickname ) {
-                antdModals("error", "이미 사용중인 닉네임입니다.");
-                return result;
-            }
-        }
 
         await createUserWithEmailAndPassword(auth, inputs.email, inputs.password)
         .then( async(data) => {
@@ -70,6 +62,8 @@ export const loginApi = {
     // 유저 정보 저장하기
     createUserInfo : async( inputs : SaveUserInfo ) => {
         await addDoc(userTable, inputs);
+
+        return inputs;
     },
 
     // 중복 체크
@@ -91,11 +85,11 @@ export const loginApi = {
 
     // 로그인
     findUserLogin : async ( inputs : { email : string, password : string } ) => {
-        let uid = ""
+        let hasUser = false;
 
         await signInWithEmailAndPassword( auth, inputs.email, inputs.password )
-        .then( res => {
-            uid = res.user.uid;
+        .then( _ => {
+            hasUser = true;
         })
         .catch( err => {
             if( err instanceof Error ) {
@@ -104,7 +98,7 @@ export const loginApi = {
             }
         })
 
-        return uid;
+        return hasUser;
     },
 
     // 구글 로그인 시, 계정 생성하기
@@ -116,8 +110,12 @@ export const loginApi = {
         if( checkUserInfo ) return true;
         
         // 없을 경우 기본 정보는 추가한다.
-        // loginApi.createUserInfo( inputs )
+        await loginApi.createUserInfo( inputs );
 
         return false;
+    },
+
+    // 닉네임 수정하기
+    updateNickname : async( nickname : string ) => {
     }
 }

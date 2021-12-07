@@ -1,8 +1,30 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext } from "react";
 import LoadingPage from "../loading";
 
+export const initUserInfo : SaveUserInfo = {
+    uid : "",
+    email : "",
+    password : "",
+    name : "",
+    nickname : "",
+    phone : "",
+    win : 0,
+    lose : 0
+}
+
+export interface SaveUserInfo {
+    uid?: string
+    email?: string
+    password?: string
+    nickname?: string
+    name?: string
+    phone?: string
+    win?: number
+    lose?: number
+}
+
 export const GlobalContext = createContext({
-    userInfo : {},
+    userInfo : initUserInfo,
     setUserInfo : ( _ : any ) => {},
     loginPage : "login",
     setLoginPage : ( _ : string) => {},

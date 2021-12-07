@@ -5,11 +5,27 @@ import BackLogin from "../../backLogin";
 import SignupContainerPage from "./part1/part1.container"
 import SignupPart2ContainerPage from "./part2/part2.container";
 
+import { useEffect, useContext } from "react";
+import { HomeContext } from "../../homeContext";
+
 export default function SignupPage({
     loginPage,
     moveLoginPage,
     _saveUserInfo
 } : ContextTypes) {
+    const { saveUserInfo } = useContext(HomeContext);
+
+    useEffect( () => {
+        console.log(saveUserInfo)
+
+        if( saveUserInfo.email !== "" ) {
+            if( saveUserInfo.nickname === "" ) {
+                console.log(123)
+                moveLoginPage("signup/part2")();
+            }
+        }
+    }, [saveUserInfo])
+
     return(
         <>
             <BackLogin />
@@ -25,8 +41,7 @@ export default function SignupPage({
 
             {loginPage.includes("/part2") && 
                 <SignupPart2ContainerPage
-                    _saveUserInfo={_saveUserInfo}
-
+                    moveLoginPage={moveLoginPage}
                 />
             }
         </>

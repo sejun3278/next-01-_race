@@ -8,7 +8,7 @@ export default function BackLoginComponents() {
     const { moveLoginPage, saveUserInfo, resetUserInfo } = useContext(HomeContext)
 
     const backLoginPage = () => {
-        if( saveUserInfo.email && saveUserInfo.password ) {
+        if( saveUserInfo.email ) {
             antdModals("confirm", "", { title : "변경된 내용이 있습니다.", 
                                     contents : "진행된 내용을 포기하고 \n 로그인 페이지로 돌아가시겠습니까?",
                                     closeText : "취소",

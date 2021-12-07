@@ -86,7 +86,7 @@ export default function LoginUIPage({
             onSubmit={submitLogin}
             Components={LoginUIPageComponents}
             yupName="login"
-            formDatas={["id", "password"]}
+            formDatas={["email", "password"]}
         ></Form>
     )
 }
