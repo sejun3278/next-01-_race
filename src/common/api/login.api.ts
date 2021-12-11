@@ -117,6 +117,6 @@ export const loginApi = {
 
     // 닉네임 수정하기
     updateNickname : async( nickname : string ) => {
-        //
+        
     }
 }
