@@ -1,4 +1,4 @@
-import { firebaseApp } from "../../../pages/_app";
+import { firebaseApp, db } from "../../../pages/_app";
 import {
     collection,
     getFirestore,
@@ -6,13 +6,15 @@ import {
     query,
     where,
     getDocs,
-    updateDoc
-} from "@firebase/firestore"
+    doc,
+    setDoc,
+    updateDoc,
+} from "@firebase/firestore";
 import { 
     getAuth, 
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword
-} from "firebase/auth"
+} from "firebase/auth";
 
 import { antdModals } from "../libraries/antd";
 import { SaveUserInfo } from "../components/GlobalContext/globalContext";
@@ -116,7 +118,15 @@ export const loginApi = {
     },
 
     // 닉네임 수정하기
-    updateNickname : async( nickname : string ) => {
-        
+    updateNickname : async( nickname : string, uid : string ) => {
+        const getDocsQuery = query( userTable, where("uid", "==", uid) );
+        const result = await getDocs( getDocsQuery );
+
+        const docID = result.docs[0].id;
+
+        const ref = doc(userTable, docID);
+        await updateDoc(ref, {
+            nickname : nickname
+        })
     }
 }

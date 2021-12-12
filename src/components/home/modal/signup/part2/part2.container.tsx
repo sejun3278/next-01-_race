@@ -24,7 +24,7 @@ export default function SignupPart2ContainerPage({
             const nicknameCheck = await loginApi.checkUserOverlap( { data : data.nickname }, "nickname" );
             if( nicknameCheck ) return antdModals("error", "이미 사용중인 닉네임입니다.");
 
-            await loginApi.updateNickname( data.nickname );
+            await loginApi.updateNickname( data.nickname, saveUserInfo.uid );
 
             return;
         }
