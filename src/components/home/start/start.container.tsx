@@ -11,9 +11,9 @@ export default function HomeStartContainerPage({
     // 비로그인시에는 로그인창 띄우기
     const openModal = () => {
         if( openLoginModal === false ) {
-            resetUserInfo();
-            toggleLoginModal();
-            moveLoginPage("login")();
+            resetUserInfo && resetUserInfo();
+            toggleLoginModal && toggleLoginModal();
+            moveLoginPage &&  moveLoginPage("login")();
         }
     }
 

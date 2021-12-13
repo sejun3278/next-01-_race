@@ -80,7 +80,7 @@ function LoginUIPageComponents({
 
 export default function LoginUIPage({
     submitLogin
-}) {
+} : { submitLogin : ( data : any ) => void }) {
     return(
         <Form
             onSubmit={submitLogin}

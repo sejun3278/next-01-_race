@@ -18,7 +18,7 @@ export const firebaseApp = initializeApp({
 })
 export const db = getFirestore();
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps } : any) {
 
   return (
     <>

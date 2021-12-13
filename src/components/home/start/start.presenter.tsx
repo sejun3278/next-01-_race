@@ -25,6 +25,10 @@ export default function HomeStartUIPage({
                 hoverStyles={{ filter : "drop-shadow(2px 4px 12px black)" }}
                 hoverEvent={true}
                 clickEvent={openModal}
+                responsiveStyles={{
+                    height : "60px", width : "260px", fontSize : "18px",
+                    marginBottom : "20px"
+                }}
             />
 
             <Button 
@@ -32,6 +36,9 @@ export default function HomeStartUIPage({
                 styles={commonStyles}
                 hoverStyles={{ filter : "drop-shadow(2px 4px 12px black)" }}
                 hoverEvent={true}
+                responsiveStyles={{
+                    height : "60px", width : "260px", fontSize : "18px"
+                }}
             />
         </StartWrapper>
     )

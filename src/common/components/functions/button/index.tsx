@@ -1,4 +1,6 @@
 import styled from "@emotion/styled"
+import { breakPoints } from "src/common/styles/responsive";
+
 import { MutableRefObject, useRef } from "react";
 import { StylesTypes } from "../../../types";
 
@@ -15,6 +17,7 @@ interface IProps {
     reverse?: boolean
     iconStyles?: StylesTypes
     wrapperStyle?: StylesTypes
+    responsiveStyles ?: StylesTypes
 }
 
 export default function ButtonComponents({
@@ -29,7 +32,7 @@ export default function ButtonComponents({
     icon,
     iconStyles,
     reverse,
-    wrapperStyle
+    responsiveStyles
 } : IProps) {
     const buttonRef = useRef() as MutableRefObject<HTMLButtonElement>;
     let isSubmited = isSubmit !== undefined ? isSubmit : true;
@@ -46,6 +49,7 @@ export default function ButtonComponents({
             submitStyles={submitStyles}
             onClick={clickEvent ? clickEvent : undefined}
             reverse={reverse}
+            responsiveStyles={responsiveStyles}
         >
             <div> {title} </div>
             { icon &&
@@ -65,6 +69,7 @@ interface StylesProps {
     isSubmit?: boolean
     submitStyles?: StylesTypes
     reverse?: boolean
+    responsiveStyles?: StylesTypes
 }
 
 const Button = styled.button`
@@ -105,6 +110,15 @@ const Button = styled.button`
         ${ (props) => props.hoverEvent && {
             transition : 'all 0.3s'
         }};
+    }
+
+    @media ${breakPoints.mobile} {
+        ${ (props) => props.responsiveStyles && {
+            height : `${props.responsiveStyles.height} !important`,
+            width : `${props.responsiveStyles.width} !important`,
+            fontSize : props.responsiveStyles.fontSize,
+            marginBottom : props.responsiveStyles.marginBottom
+        }}
     }
 `
 

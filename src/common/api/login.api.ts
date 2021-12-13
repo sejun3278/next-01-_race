@@ -41,7 +41,7 @@ export const loginApi = {
     createUser : async ( inputs : SaveUserInfo ) => {
         const result = { success : false, data : { uid : "" } };
 
-        await createUserWithEmailAndPassword(auth, inputs.email, inputs.password)
+        await createUserWithEmailAndPassword(auth, inputs.email || "", inputs.password || "")
         .then( async(data) => {
             result.success = true;
             // uid 추가하기
