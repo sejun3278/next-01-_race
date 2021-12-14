@@ -7,9 +7,13 @@ import { GlobalContext } from "../../../../../common/components/GlobalContext/gl
 import { loginApi } from "../../../../../common/api/login.api";
 import { antdModals } from "../../../../../common/libraries/antd";
 
+interface IProps {
+    moveLoginPage : any
+}
+
 export default function SignupPart2ContainerPage({
     moveLoginPage
-}) {
+} : IProps) {
     const { saveUserInfo, googleLogin } = useContext(HomeContext);
     const { toggleLoading } = useContext(GlobalContext)
 
@@ -24,13 +28,13 @@ export default function SignupPart2ContainerPage({
             const nicknameCheck = await loginApi.checkUserOverlap( { data : data.nickname }, "nickname" );
             if( nicknameCheck ) return antdModals("error", "이미 사용중인 닉네임입니다.");
 
-            await loginApi.updateNickname( data.nickname, saveUserInfo.uid );
+            await loginApi.updateNickname( data.nickname, saveUserInfo.uid || "" );
 
             return;
         }
 
         // 이메일 중복 체크
-        const emailCheck = await loginApi.checkUserOverlap( { data : saveUserInfo.email }, "email" );
+        const emailCheck = await loginApi.checkUserOverlap( { data : saveUserInfo.email || "" }, "email" );
         if( emailCheck ) return antdModals("error", "이미 사용중인 이메일입니다.");
         
         // 닉네임 중복 체크

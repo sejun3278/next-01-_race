@@ -8,10 +8,15 @@ const inputStyles = {
     marginBottom : "20px"
 };
 
+interface IProps {
+    setValue : any
+    formState : any
+}
+
 function SignupUIPageComponents({
     setValue,
     formState
-}) {
+} : IProps) {
 
     return(
         <FormInfoWrapper>
@@ -69,7 +74,7 @@ function SignupUIPageComponents({
 
 export default function SignupUIPage({
     sumbitSignup
-}) {
+} : { sumbitSignup : ( data : { email : string, password : string, confirm : string } ) => void }) {
     return(
         <Form 
             onSubmit={sumbitSignup}

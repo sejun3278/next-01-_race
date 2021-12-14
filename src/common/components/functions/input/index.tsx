@@ -5,7 +5,7 @@ import { MDBInput } from "mdb-react-ui-kit";
 
 import { StylesTypes } from "../../../types";
 import { UseFormRegisterReturn } from "react-hook-form";
-import { useEffect } from "react";
+import { breakPoints } from "src/common/styles/responsive";
 
 interface IProps {
     placeHolder?: string
@@ -18,6 +18,7 @@ interface IProps {
     errorMessages?: string
     register?: any
     value?: string
+    responsiveStyles ?:StylesTypes
 }
 
 export default function InputComponents({
@@ -30,7 +31,8 @@ export default function InputComponents({
     name,
     errorMessages,
     register,
-    value
+    value,
+    responsiveStyles
 } : IProps) {
     const _register = register || function a() {}
 
@@ -42,10 +44,11 @@ export default function InputComponents({
                    style={styles}
                    isHookForm={isHookForm}
                    name={name}
-                   onChange={onChange && onChange(name)}
+                   onChange={onChange && onChange(name || "")}
                    {..._register(name)}
                    value={value}
                    autocomplete={type === "password" && "on" }
+                   responsiveStyles={responsiveStyles}
                 //    errorMessages={errorMessages || ""}
             />
         </InputWrapper>
@@ -63,4 +66,11 @@ const Input = styled(MDBInput)`
     font-size : 15px;
     display : flex;
     margin-bottom : 15px;
+
+    @media ${breakPoints.mobile} {
+        ${ (props) => props.responsiveStyles && {
+            width : `${props.responsiveStyles.width} !important`,
+            height : `${props.responsiveStyles.height} !important`
+        }}
+    }
 `

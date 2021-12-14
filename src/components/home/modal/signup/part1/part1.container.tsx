@@ -29,9 +29,9 @@ export default function SignupContainerPage({
 
             else {
                 const inputs = { email : data?.email, password : data?.password };
-                _saveUserInfo( inputs )
+                _saveUserInfo && _saveUserInfo( inputs )
 
-                moveLoginPage("signup/part2")();
+                moveLoginPage && moveLoginPage("signup/part2")();
             }
             ing = false;
         }

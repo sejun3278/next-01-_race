@@ -16,12 +16,9 @@ export default function SignupPage({
     const { saveUserInfo } = useContext(HomeContext);
 
     useEffect( () => {
-        console.log(saveUserInfo)
-
         if( saveUserInfo.email !== "" ) {
             if( saveUserInfo.nickname === "" ) {
-                console.log(123)
-                moveLoginPage("signup/part2")();
+                moveLoginPage && moveLoginPage("signup/part2")();
             }
         }
     }, [saveUserInfo])
@@ -32,14 +29,14 @@ export default function SignupPage({
             <TitleWrapper>
                 <h2> 계정 등록 </h2>
             </TitleWrapper>
-            {loginPage.includes("/part1") &&
+            {loginPage && loginPage.includes("/part1") &&
                 <SignupContainerPage 
                     moveLoginPage={moveLoginPage}
                     _saveUserInfo={_saveUserInfo}
                 />
             }
 
-            {loginPage.includes("/part2") && 
+            {loginPage && loginPage.includes("/part2") && 
                 <SignupPart2ContainerPage
                     moveLoginPage={moveLoginPage}
                 />

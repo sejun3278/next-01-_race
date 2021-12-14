@@ -1,4 +1,5 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
+import "../styles/modal_styles/loginModal.css";
 import Head from "next/head";
 
 import GlobalContext from "../src/common/components/GlobalContext/globalContext";

@@ -1,6 +1,7 @@
 import LoginContainerPage from "./login/login.container"
 import SignupContainerPage from "./signup";
 import styled from "@emotion/styled";
+import { breakPoints } from "src/common/styles/responsive";
 
 import 'react-responsive-modal/styles.css';
 import { Modal } from "react-responsive-modal";
@@ -26,19 +27,21 @@ export default function LoginAndSignupModalPage({
     return(
         <>
         {openLoginModal &&
-            <Modal
+            <_Modal
                 open={openLoginModal}
+                // @ts-ignore
                 onClose={toggleLoginModal}
                 styles={styles}
                 closeOnOverlayClick={false}
+                classNames={{ overlay : "LoginModal" }}
             >
                 <ModalWrapper>
-                    {loginPage.includes('login') &&
+                    {loginPage && loginPage.includes('login') &&
                         <LoginContainerPage 
                         />
                     }
                     
-                    {loginPage.includes('signup') &&
+                    {loginPage && loginPage.includes('signup') &&
                         <SignupContainerPage 
                             moveLoginPage={moveLoginPage}
                             loginPage={loginPage}
@@ -46,7 +49,7 @@ export default function LoginAndSignupModalPage({
                         />
                     }
                 </ModalWrapper>
-            </Modal>
+            </_Modal>
         }            
         </>
     )
@@ -55,4 +58,13 @@ export default function LoginAndSignupModalPage({
 const ModalWrapper = styled.div`
     width : 600px;
     height : 600px;
+
+    @media ${breakPoints.mobile} {
+        width : auto;
+        height : auto;
+    }
+`
+
+const _Modal = styled(Modal)`
+    
 `

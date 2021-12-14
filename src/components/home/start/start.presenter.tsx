@@ -26,7 +26,7 @@ export default function HomeStartUIPage({
                 hoverEvent={true}
                 clickEvent={openModal}
                 responsiveStyles={{
-                    height : "60px", width : "260px", fontSize : "18px",
+                    height : "55px", width : "210px", fontSize : "17px",
                     marginBottom : "20px"
                 }}
             />
@@ -37,7 +37,7 @@ export default function HomeStartUIPage({
                 hoverStyles={{ filter : "drop-shadow(2px 4px 12px black)" }}
                 hoverEvent={true}
                 responsiveStyles={{
-                    height : "60px", width : "260px", fontSize : "18px"
+                    height : "55px", width : "210px", fontSize : "17px"
                 }}
             />
         </StartWrapper>

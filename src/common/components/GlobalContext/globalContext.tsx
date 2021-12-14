@@ -38,7 +38,7 @@ import { GlobalContextIProps } from "./globalContext.types";
 
 export default function GlobalContextPage({
     children
-}) {
+} : any) {
     // 로그인 모달창 열기(true) / 닫기(false)
     const [ openLoginModal, setOpenLoginModal ] = useState<boolean>(false)
     // login : 로그인 화면

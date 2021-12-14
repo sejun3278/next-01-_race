@@ -18,6 +18,7 @@ interface IProps {
     iconStyles?: StylesTypes
     wrapperStyle?: StylesTypes
     responsiveStyles ?: StylesTypes
+    responsiveIconStyles?: StylesTypes
 }
 
 export default function ButtonComponents({
@@ -32,7 +33,8 @@ export default function ButtonComponents({
     icon,
     iconStyles,
     reverse,
-    responsiveStyles
+    responsiveStyles,
+    responsiveIconStyles
 } : IProps) {
     const buttonRef = useRef() as MutableRefObject<HTMLButtonElement>;
     let isSubmited = isSubmit !== undefined ? isSubmit : true;
@@ -57,6 +59,7 @@ export default function ButtonComponents({
                     alt="아이콘 이미지"
                     src={icon}
                     style={iconStyles}
+                    responsiveIconStyles={responsiveIconStyles}
                 />
             }
         </Button>
@@ -70,6 +73,7 @@ interface StylesProps {
     submitStyles?: StylesTypes
     reverse?: boolean
     responsiveStyles?: StylesTypes
+    responsiveIconStyles?: StylesTypes
 }
 
 const Button = styled.button`
@@ -116,12 +120,17 @@ const Button = styled.button`
         ${ (props) => props.responsiveStyles && {
             height : `${props.responsiveStyles.height} !important`,
             width : `${props.responsiveStyles.width} !important`,
-            fontSize : props.responsiveStyles.fontSize,
+            fontSize : `${props.responsiveStyles.fontSize} !important`,
             marginBottom : props.responsiveStyles.marginBottom
         }}
     }
 `
 
 const Icon = styled.img`
-
+    @media ${breakPoints.mobile} {
+        ${ (props : StylesProps) => props.responsiveIconStyles && {
+            height : `${props.responsiveIconStyles.height} !important`,
+            width : `${props.responsiveIconStyles.width} !important`,
+        }}
+    }
 `

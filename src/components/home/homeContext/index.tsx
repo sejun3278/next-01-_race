@@ -19,7 +19,7 @@ import LoginAndSignupModalPage from "../modal";
 
 export default function homeContextPage({
     children
-}) {
+} : any) {
     const [ openLoginModal, setOpenLoginModal ] = useState<boolean>(false)
     // 2 : 로그인 화면
     // 3 : 계정등록 화면
@@ -41,13 +41,13 @@ export default function homeContextPage({
 
     // 유저 정보 저장하기
     const _saveUserInfo = ( inputs : SaveUserInfo ) => {
-        const saveInfo = { ...saveUserInfo };
+        const saveInfo : any = { ...saveUserInfo };
 
         Object.entries( inputs ).forEach( obj => {
             const key = obj[0];
             const value = obj[1];
 
-            saveInfo[key] = value;
+            saveInfo[key] = value ;
         })
 
         setSaveUserInfo( saveInfo );

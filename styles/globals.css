@@ -21,11 +21,5 @@ a {
   font-family: Noto Sans Korean;
 }
 
-/* 로그인 모달창 x 버튼 삭제 */
-  .react-responsive-modal-modal {
-    border-radius: 15px;
-  }
-
-  /* .react-responsive-modal-closeButton { */
-          /* display : none !important; */
-  /* } */
+.react-responsive-modal-modal {
+}

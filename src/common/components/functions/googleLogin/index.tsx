@@ -28,13 +28,13 @@ export default function GoogleLoginButton() {
             const craeteUserInfo = await loginApi.createGoogleLogin({
                 ...inputs,
                 uid : result.user.uid,
-                email : result.user.email,
-                name : result.user.displayName,
+                email : result.user.email || "",
+                name : result.user.displayName || "",
                 phone : result.user.phoneNumber || ""
             })
 
             // 유저 정보 가져오기
-            const getUserInfo : SaveUserInfo = await loginApi.getUserInfo(result.user.email);
+            const getUserInfo : SaveUserInfo = await loginApi.getUserInfo(result.user.email || "");
             _saveUserInfo( getUserInfo );
             isGoogleLogin();
             
@@ -63,6 +63,8 @@ export default function GoogleLoginButton() {
             reverse={true}
             iconStyles={{ width : "25px", height : "25px", marginRight : "8px" }}
             clickEvent={googleLogin}
+            responsiveStyles={{ fontSize : "12px" }}
+            responsiveIconStyles={{ width : "18px", height : "18px" }}
         />
     )
 }

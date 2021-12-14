@@ -29,7 +29,7 @@ export const Title = styled.h1`
     word-spacing : 10px;
 
     @media ${breakPoints.mobile} {
-        font-size : 7vw;
+        font-size : 6.5vw;
     }
 `
 

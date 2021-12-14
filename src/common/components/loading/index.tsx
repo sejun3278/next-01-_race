@@ -5,7 +5,7 @@ import { MutableRefObject, useEffect, useRef } from "react";
 
 export default function LoadingPage({
     loading,
-}) {
+} : { loading : string }) {
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
     useEffect( () => {
         if( loading ) {
