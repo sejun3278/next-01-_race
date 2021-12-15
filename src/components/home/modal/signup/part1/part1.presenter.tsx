@@ -27,18 +27,7 @@ function SignupUIPageComponents({
                     onChange={() => setValue("email")}
                     styles={{ ...inputStyles }}
                     errorMessages={formState.errors?.email?.message}
-                //    errorMessages={formState}
             />
-
-            {/* <Input placeHolder="닉네임"
-                    type="text"
-                    name="nickname"
-                    max={10}
-                    onChange={() => setValue("nickname")}
-                    styles={{ ...inputStyles }}
-                    errorMessages={formState.errors?.nickname?.message}
-                //    errorMessages={formState.errors?.nickname.messges}
-            /> */}
 
             <Input placeHolder="비밀번호"
                     type="password"
@@ -67,6 +56,7 @@ function SignupUIPageComponents({
                 hoverStyles={{ filter : "drop-shadow(2px 4px 12px black)" }}
                 hoverEvent={true}
                 submitStyles={{ backgroundColor : 'rgb(87, 114, 255)', 'color' : 'white !important' }}
+                responsiveStyles={{ margin : "0px" }}
             />
         </FormInfoWrapper>
     )

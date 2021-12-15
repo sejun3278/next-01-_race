@@ -34,6 +34,8 @@ export default function BackLoginComponents() {
                 iconStyles={{ width : '12px', height : '12px', marginRight : "8px" }}
                 wrapperStyle={{ height : '40px' }}
                 clickEvent={backLoginPage}
+                responsiveStyles={{ fontSize : "14px" }}
+                responsiveIconStyles={{ width : "8px", height : "8px" }}
             />
         </>
     )

@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import styled from "@emotion/styled"
 import { breakPoints } from "src/common/styles/responsive";
 
@@ -21,7 +23,7 @@ interface IProps {
     responsiveIconStyles?: StylesTypes
 }
 
-export default function ButtonComponents({
+function ButtonComponents({
     title,
     styles,
     hoverStyles,
@@ -65,6 +67,8 @@ export default function ButtonComponents({
         </Button>
     )
 }
+
+export default memo(ButtonComponents)
 
 interface StylesProps {
     hoverStyles?: StylesTypes
@@ -121,7 +125,8 @@ const Button = styled.button`
             height : `${props.responsiveStyles.height} !important`,
             width : `${props.responsiveStyles.width} !important`,
             fontSize : `${props.responsiveStyles.fontSize} !important`,
-            marginBottom : props.responsiveStyles.marginBottom
+            marginBottom : `${props.responsiveStyles.marginBottom} !important`,
+            margin : `${props.responsiveStyles.margin} !important`,
         }}
     }
 `

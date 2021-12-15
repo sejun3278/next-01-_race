@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
@@ -21,6 +21,7 @@ export default function HookFormPage({
     props
 } : IProps) {
     const { handleSubmit, formState, register, setValue, trigger, watch } = useForm({
+        // @ts-ignore
         resolver : yupResolver(shema[yupName])
     });
 
@@ -33,13 +34,20 @@ export default function HookFormPage({
         }
     }, [formDatas])
 
-    // 데이터 수정하기
-    const _setValue = ( name : string, content?: string ) => () => {
-        const contents = content || (document.getElementsByName(name)[0] as HTMLInputElement ).value;
+    // 데이터 수정하기 (0.3초 디바운싱 적용)
+    let _debounce : ReturnType<typeof setTimeout>;
+    const _setValue = useCallback(( name : string, content?: string ) => () => {
+        if( _debounce ) {
+            window.clearTimeout(_debounce)
+        }
 
-        setValue(name, contents);
-        trigger(name);
-    }
+        _debounce = setTimeout( () => {
+            const contents = content || (document.getElementsByName(name)[0] as HTMLInputElement ).value;
+                
+            setValue(name, contents);
+            trigger(name);
+        }, 300)
+    }, [])
 
     return(
         <form 

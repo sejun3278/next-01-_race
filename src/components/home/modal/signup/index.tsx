@@ -1,5 +1,6 @@
 import { ContextTypes } from "../../homeContext"
 import styled from "@emotion/styled";
+import { breakPoints } from "src/common/styles/responsive";
 
 import BackLogin from "../../backLogin";
 import SignupContainerPage from "./part1/part1.container"
@@ -51,6 +52,19 @@ const TitleWrapper = styled.div`
     align-items : center;
     padding : 23px 0px;
     border-bottom : solid 1px black;
+
+    h2 {
+        font-size : 30px;
+        font-weight : 500;
+    }
+
+    @media ${breakPoints.mobile} {
+        padding : 10px 0px;
+
+        h2 {
+            font-size : 20px;
+        }
+    }
 `
 
 export const FormInfoWrapper = styled.div`
@@ -58,4 +72,14 @@ export const FormInfoWrapper = styled.div`
     display : flex;
     flex-direction : column;
     align-items : center;
+
+    @media ${breakPoints.mobile} {
+        padding-top : 30px;
+
+        input {
+            height : 40px;
+            margin : 0px;
+            font-size : 14px;
+        }
+    }
 `

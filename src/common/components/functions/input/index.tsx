@@ -1,3 +1,4 @@
+// import { memo } from "react";
 import styled from "@emotion/styled";
 
 import 'mdb-react-ui-kit/dist/css/mdb.min.css'
@@ -21,7 +22,7 @@ interface IProps {
     responsiveStyles ?:StylesTypes
 }
 
-export default function InputComponents({
+function InputComponents({
     placeHolder,
     type,
     max,
@@ -70,7 +71,10 @@ const Input = styled(MDBInput)`
     @media ${breakPoints.mobile} {
         ${ (props) => props.responsiveStyles && {
             width : `${props.responsiveStyles.width} !important`,
-            height : `${props.responsiveStyles.height} !important`
+            height : `${props.responsiveStyles.height} !important`,
+            margin : `${props.responsiveStyles.margin} !important`
         }}
     }
 `
+
+export default InputComponents;

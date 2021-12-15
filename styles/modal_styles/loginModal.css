@@ -1,20 +1,20 @@
-.react-responsive-modal-root {
-    
-}
-
 .react-responsive-modal-root .react-responsive-modal-modal {
   border-radius: 15px;
 }
 
 
 @media screen and (max-width : 767px) {
-    .react-responsive-modal-root {
-        /* margin-top : 70px; */
-    }
-
     .react-responsive-modal-root 
     .react-responsive-modal-modal {
-        margin : 0px;
-        margin-top : 60px;
+        /* margin : 0px; */
+        margin-top : 30px;
+        border-radius: 0px;
+        width : 100%;
+        top : 15px;
+        height: 400px;
+    }
+
+    .react-responsive-modal-closeButton {
+        top : 5% !important;
     }
 }

@@ -94,6 +94,7 @@ export const OtherList = styled.div`
         flex-direction : column;
         line-height : 50px;
         padding-bottom : 30px;
+        align-items : center;
     }
 `
 
@@ -102,6 +103,10 @@ export const Other = styled.button`
 
     :hover {
         color : black;
+    }
+
+    @media ${breakPoints.mobile} {
+        width : 100px;
     }
 `
 

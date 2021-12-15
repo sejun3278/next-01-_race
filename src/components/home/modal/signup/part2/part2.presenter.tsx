@@ -47,6 +47,7 @@ function SignupPart2UIComponentsPage({
                     max={13}
                     value={watch("phone")}
                     onChange={() => phoneValidate(setValue)}
+                    responsiveStyles={{ margin : "10px 0px 10px 0px" }}
                 />
             </OptionalWrapper>
 
@@ -60,6 +61,7 @@ function SignupPart2UIComponentsPage({
                 hoverStyles={{ filter : "drop-shadow(2px 4px 12px black)" }}
                 hoverEvent={true}
                 submitStyles={{ backgroundColor : 'rgb(87, 114, 255)', 'color' : 'white !important' }}
+                responsiveStyles={{ margin : "20px 0px 0px 0px" }}
             />
         </FormInfoWrapper>
     )
