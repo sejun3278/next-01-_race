@@ -87,11 +87,11 @@ export const loginApi = {
 
     // 로그인
     findUserLogin : async ( inputs : { email : string, password : string } ) => {
-        let hasUser = false;
+        let userInfo = {};
 
         await signInWithEmailAndPassword( auth, inputs.email, inputs.password )
-        .then( _ => {
-            hasUser = true;
+        .then( async (_)=> {
+            userInfo = await loginApi.getUserInfo( inputs.email );
         })
         .catch( err => {
             if( err instanceof Error ) {
@@ -100,7 +100,7 @@ export const loginApi = {
             }
         })
 
-        return hasUser;
+        return userInfo;
     },
 
     // 구글 로그인 시, 계정 생성하기
@@ -117,16 +117,14 @@ export const loginApi = {
         return false;
     },
 
-    // 닉네임 수정하기
-    updateNickname : async( nickname : string, uid : string ) => {
+    // 유저 정보 수정하기
+    updateUserInfo : async( inputs : any, uid : string ) => {
         const getDocsQuery = query( userTable, where("uid", "==", uid) );
         const result = await getDocs( getDocsQuery );
 
         const docID = result.docs[0].id;
 
         const ref = doc(userTable, docID);
-        await updateDoc(ref, {
-            nickname : nickname
-        })
+        await updateDoc(ref, inputs)
     }
 }

@@ -20,6 +20,7 @@ interface IProps {
     register?: any
     value?: string
     responsiveStyles ?:StylesTypes
+    defaultValue?: string
 }
 
 function InputComponents({
@@ -33,7 +34,8 @@ function InputComponents({
     errorMessages,
     register,
     value,
-    responsiveStyles
+    responsiveStyles,
+    defaultValue
 } : IProps) {
     const _register = register || function a() {}
 
@@ -47,7 +49,8 @@ function InputComponents({
                    name={name}
                    onChange={onChange && onChange(name || "")}
                    {..._register(name)}
-                   value={value}
+                   value={value ? value : undefined}
+                   defaultValue={defaultValue}
                    autocomplete={type === "password" && "on" }
                    responsiveStyles={responsiveStyles}
                 //    errorMessages={errorMessages || ""}

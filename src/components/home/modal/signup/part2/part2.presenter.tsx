@@ -13,8 +13,9 @@ import { phoneValidate } from "../../../../../common/libraries/validation";
 function SignupPart2UIComponentsPage({
     setValue,
     formState,
-    watch
-}) {
+    watch,
+    getValues
+} : any) {
     return(
         <FormInfoWrapper>
             <Input 
@@ -37,7 +38,8 @@ function SignupPart2UIComponentsPage({
                     name="name"
                     type="text"
                     max={10}
-                    onChange={() => setValue("name")}
+                    value={getValues("name")}
+                    onChange={() => setValue("name", undefined, false)}
                 />
 
                 <Input 
@@ -69,12 +71,12 @@ function SignupPart2UIComponentsPage({
 
 export default function SignupPart2UIPage({
     sumbit
-}) {
+} : { sumbit : ( input : { name: string, nickname: string, phone: string } ) => void } ) {
     return(
         <Form
             onSubmit={sumbit}
             Components={SignupPart2UIComponentsPage}
-            formDatas={['nickname']}
+            formDatas={['nickname', 'name', 'phone']}
             yupName="userInfo"
         />
     )

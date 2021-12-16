@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, Dispatch } from "react";
 import LoadingPage from "../loading";
 
 export const initUserInfo : SaveUserInfo = {
@@ -27,7 +27,7 @@ export const GlobalContext = createContext({
     userInfo : initUserInfo,
     setUserInfo : ( _ : any ) => {},
     loginPage : "login",
-    setLoginPage : ( _ : string) => {},
+    setLoginPage : ( _ : any ) => {},
     openLoginModal : false,
     toggleLoginModal : () => {},
     loading : "",
@@ -66,6 +66,7 @@ export default function GlobalContextPage({
       userInfo,
       setUserInfo,
       loginPage,
+      // @ts-ignore
       setLoginPage,
       openLoginModal,
       toggleLoginModal,

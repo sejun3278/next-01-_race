@@ -5,7 +5,7 @@ import Input from "../../../../../common/components/functions/input";
 import Button from "../../../../../common/components/functions/button";
 
 const inputStyles = {
-    marginBottom : "20px"
+    marginBottom : "30px"
 };
 
 interface IProps {
@@ -56,7 +56,7 @@ function SignupUIPageComponents({
                 hoverStyles={{ filter : "drop-shadow(2px 4px 12px black)" }}
                 hoverEvent={true}
                 submitStyles={{ backgroundColor : 'rgb(87, 114, 255)', 'color' : 'white !important' }}
-                responsiveStyles={{ margin : "0px" }}
+                responsiveStyles={{ margin : "20px 0px 0px 0px" }}
             />
         </FormInfoWrapper>
     )

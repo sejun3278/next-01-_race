@@ -1,4 +1,5 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useContext } from "react";
+import { HomeContext } from "src/components/home/homeContext";
 
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
@@ -20,33 +21,43 @@ export default function HookFormPage({
     formDatas,
     props
 } : IProps) {
-    const { handleSubmit, formState, register, setValue, trigger, watch } = useForm({
+    const { handleSubmit, formState, register, setValue, trigger, watch, getValues } = useForm({
         // @ts-ignore
         resolver : yupResolver(shema[yupName])
     });
+    const { saveUserInfo } = useContext( HomeContext );
 
     // 받아올 폼 데이터 초기값 설정하기
     useEffect( () => {
         if( formDatas ) {
             formDatas.forEach( el => {
-                setValue(el, "");
+                // @ts-ignore
+                setValue(el, saveUserInfo[el] || "");
             })
         }
     }, [formDatas])
 
     // 데이터 수정하기 (0.3초 디바운싱 적용)
     let _debounce : ReturnType<typeof setTimeout>;
-    const _setValue = useCallback(( name : string, content?: string ) => () => {
+    const _setValue = useCallback(( name : string, content?: string, onDebounce?: boolean ) => () => {
+        const timer = 300;
+        const contents = content || (document.getElementsByName(name)[0] as HTMLInputElement ).value;
+
+        if( onDebounce === false ) {
+            setValue(name, contents);
+            trigger(name);
+
+            return;
+        }
+
         if( _debounce ) {
             window.clearTimeout(_debounce)
         }
 
         _debounce = setTimeout( () => {
-            const contents = content || (document.getElementsByName(name)[0] as HTMLInputElement ).value;
-                
             setValue(name, contents);
             trigger(name);
-        }, 300)
+        }, timer)
     }, [])
 
     return(
@@ -59,6 +70,7 @@ export default function HookFormPage({
                 register={register}
                 props={props}
                 watch={watch}
+                getValues={getValues}
             />
         </form>
     )

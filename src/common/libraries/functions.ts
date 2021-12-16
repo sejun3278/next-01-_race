@@ -1,3 +1,3 @@
 export const loading = () => {
-    document.querySelector("body").style.cursor = "wait";
+    (document.querySelector("body") as HTMLBodyElement ).style.cursor = "wait";
 }
