@@ -25,6 +25,7 @@ export default function HookFormPage({
         // @ts-ignore
         resolver : yupResolver(shema[yupName])
     });
+    console.log(useForm)
     const { saveUserInfo } = useContext( HomeContext );
 
     // 받아올 폼 데이터 초기값 설정하기
