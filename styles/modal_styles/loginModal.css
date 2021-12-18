@@ -11,7 +11,7 @@
         border-radius: 0px;
         width : 100%;
         top : 15px;
-        height: 400px;
+        height: auto;
     }
 
     .react-responsive-modal-closeButton {

@@ -14,6 +14,7 @@ import Form from "../../../../common/components/functions/form";
 import Input from "../../../../common/components/functions/input";
 import Button from "../../../../common/components/functions/button";
 import GoogleLoginButton from "../../../../common/components/functions/googleLogin";
+import ModalTitle from "../commons/title";
 
 import { LoginUIPageComponentsIProps } from "./login.types";
 import { useContext } from "react";
@@ -27,10 +28,13 @@ function LoginUIPageComponents({
 
     return(
         <LoginWrapper>
-            <LoginCheck>
+            <ModalTitle 
+                title={`<h3> 비로그인 상태입니다. </h3> <h3> <span id="moveSignup">계정 등록</span> 또는 로그인이 필요합니다. </h3>`}
+            />
+            {/* <LoginCheck>
                 <div> 비로그인 상태입니다. </div>
                 <div> <B onClick={moveLoginPage("signup/part1")}>계정 등록</B> 또는 <B>로그인</B>이 필요합니다. </div>
-            </LoginCheck>
+            </LoginCheck> */}
 
             <ContentsWrapper>
                 <LoginInputsWrapper>
@@ -72,8 +76,8 @@ function LoginUIPageComponents({
                 <OtherWrapper>
                     <OtherList>
                         <Other type="button" onClick={moveLoginPage("signup/part1")}> 계정 등록 </Other>
-                        <Other type="button"> 이메일 찾기 </Other>
-                        <Other type="button"> 비밀번호 찾기 </Other>
+                        <Other type="button" onClick={moveLoginPage("search/email")}> 이메일 찾기 </Other>
+                        <Other type="button" onClick={moveLoginPage("search/password")}> 비밀번호 찾기 </Other>
                     </OtherList>
                     <NoticeSignup type="button"> 아직 회원이 아니시라면, <B onClick={moveLoginPage("signup/part1")}>계정 등록</B>을 통해 새로운 계정을 만들어보세요.</NoticeSignup>
                 </OtherWrapper>

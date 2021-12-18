@@ -1,5 +1,8 @@
 import LoginContainerPage from "./login/login.container"
 import SignupContainerPage from "./signup";
+import ModalSearchPage from "./search/search.container";
+import BackLogin from "../backLogin";
+
 import styled from "@emotion/styled";
 import { breakPoints } from "src/common/styles/responsive";
 
@@ -36,6 +39,10 @@ export default function LoginAndSignupModalPage({
                 classNames={{ overlay : "LoginModal" }}
             >
                 <ModalWrapper>
+                    {loginPage && loginPage !== "login" &&
+                        <BackLogin />
+                    }
+
                     {loginPage && loginPage.includes('login') &&
                         <LoginContainerPage 
                         />
@@ -46,6 +53,13 @@ export default function LoginAndSignupModalPage({
                             moveLoginPage={moveLoginPage}
                             loginPage={loginPage}
                             _saveUserInfo={_saveUserInfo}
+                        />
+                    }
+
+                    {loginPage && loginPage.includes("search") &&
+                        <ModalSearchPage 
+                            moveLoginPage={moveLoginPage}
+                            loginPage={loginPage}
                         />
                     }
                 </ModalWrapper>

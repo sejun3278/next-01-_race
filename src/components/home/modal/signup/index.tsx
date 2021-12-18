@@ -2,9 +2,9 @@ import { ContextTypes } from "../../homeContext"
 import styled from "@emotion/styled";
 import { breakPoints } from "src/common/styles/responsive";
 
-import BackLogin from "../../backLogin";
 import SignupContainerPage from "./part1/part1.container"
 import SignupPart2ContainerPage from "./part2/part2.container";
+import ModalTitle from "../commons/title";
 
 import { useEffect, useContext } from "react";
 import { HomeContext } from "../../homeContext";
@@ -26,10 +26,10 @@ export default function SignupPage({
 
     return(
         <>
-            <BackLogin />
-            <TitleWrapper>
-                <h2> 계정 등록 </h2>
-            </TitleWrapper>
+            <ModalTitle 
+                title="<h2> 계정 등록 </h2>"
+            />
+
             {loginPage && loginPage.includes("/part1") &&
                 <SignupContainerPage 
                     moveLoginPage={moveLoginPage}
