@@ -41,5 +41,12 @@ export const shema = {
             .string()
             .required(":: 닉네임을 입력해주세요.")
             .min(2, ":: 최소 2글자 이상 입력해주세요.")
-    })
+    }),
+
+    email : yup.object().shape({
+        nickname : yup
+            .string()
+            .required(":: 닉네임을 입력해주세요.")
+            .min(2, ":: 최소 2글자 이상 입력해주세요.")
+        }),
 }

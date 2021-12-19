@@ -1,6 +1,5 @@
 import {
     LoginWrapper,
-    LoginCheck,
     B,
     LoginInputsWrapper,
     OtherWrapper,
@@ -31,10 +30,6 @@ function LoginUIPageComponents({
             <ModalTitle 
                 title={`<h3> 비로그인 상태입니다. </h3> <h3> <span id="moveSignup">계정 등록</span> 또는 로그인이 필요합니다. </h3>`}
             />
-            {/* <LoginCheck>
-                <div> 비로그인 상태입니다. </div>
-                <div> <B onClick={moveLoginPage("signup/part1")}>계정 등록</B> 또는 <B>로그인</B>이 필요합니다. </div>
-            </LoginCheck> */}
 
             <ContentsWrapper>
                 <LoginInputsWrapper>

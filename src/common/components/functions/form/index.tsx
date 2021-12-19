@@ -5,14 +5,7 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import { shema } from '../../../../common/validation';
 
-interface IProps {
-    // children?: ReactNode
-    Components: any
-    onSubmit : ( data : any ) => void
-    yupName?: string
-    formDatas?: Array<string>
-    props?: any
-}
+import { IProps } from "./types";
 
 export default function HookFormPage({ 
     Components,
@@ -25,7 +18,6 @@ export default function HookFormPage({
         // @ts-ignore
         resolver : yupResolver(shema[yupName])
     });
-    console.log(useForm)
     const { saveUserInfo } = useContext( HomeContext );
 
     // 받아올 폼 데이터 초기값 설정하기
