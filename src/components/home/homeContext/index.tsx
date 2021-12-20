@@ -17,7 +17,7 @@ import HomeTitleUIPage from "../title/HomeTitle.presenter"
 import HomeStartPage from "../start/start.container";
 import LoginAndSignupModalPage from "../modal";
 
-export default function homeContextPage({
+export default function HomeContextPage({
     children
 } : any) {
     const [ openLoginModal, setOpenLoginModal ] = useState<boolean>(false)
