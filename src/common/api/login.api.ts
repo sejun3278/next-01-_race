@@ -126,5 +126,19 @@ export const loginApi = {
 
         const ref = doc(userTable, docID);
         await updateDoc(ref, inputs)
+    },
+
+    // 이메일 찾기 ( 닉네임 검사하기 )
+    searchEmail : async( nickname : string ) =>{
+        const overlapQuery = query( userTable, where("nickname", "==", nickname) );
+        const result = await getDocs( overlapQuery );
+
+        let userInfo = {};
+        result?.forEach( el => {
+            userInfo = el.data();
+        })
+
+        return userInfo;
     }
 }
+

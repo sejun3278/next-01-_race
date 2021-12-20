@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
 
+interface IProps {
+    type ?: string
+}
+
 export const SearchWrapper = styled.div`
     display :flex;
     flex-direction : column;
@@ -11,7 +15,7 @@ export const InputWrapper = styled.div`
     padding-top : 50px;
     /* padding : 50px 0px; */
     align-items : center;
-    min-height : 320px;
+    min-height : ${ (props : IProps) => props.type === 'email' ? "320px" : "280px" };
     
     input {
         width : 350px !important;

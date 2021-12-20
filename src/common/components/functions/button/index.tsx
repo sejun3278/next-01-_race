@@ -110,7 +110,7 @@ const Button = styled.button`
 
     :hover {
         ${ (props : StylesProps) => props.hoverStyles && {
-            filter : props.hoverStyles.filter,
+            filter : props.hoverStyles.filter && props.hoverStyles.filter,
             backgroundColor : props.hoverStyles.backgroundColor,
             color : props.hoverStyles.color
         }}

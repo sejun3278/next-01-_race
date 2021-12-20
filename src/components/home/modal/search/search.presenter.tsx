@@ -10,6 +10,7 @@ import Input from "../../../../common/components/functions/input";
 import Button from "../../../../common/components/functions/button";
 
 import ModalTitle from "../commons/title";
+import SearchEmailPage from "./email";
 
 import { UIPageTypes, IProps } from "./search.types";
 
@@ -27,16 +28,12 @@ function SearchUIComponent({
             />
             <Notice dangerouslySetInnerHTML={{ __html : props.notice }}/>
 
-            <InputWrapper>
+            <InputWrapper type={props.type}>
                 {props.type === "email"
-                    && <>
-                            <Input 
-                                placeHolder="닉네임"
-                                name="nickname"
-                                onChange={() => setValue("nickname")}
-                                errorMessages={formState.errors?.nickname?.message}
-                            />
-                       </>
+                    && <SearchEmailPage 
+                            onChange={setValue}
+                            error={formState.errors?.email?.message || ""}
+                       />
                 }
 
                 {props.type === "password"
@@ -63,6 +60,13 @@ function SearchUIComponent({
                 <Button 
                     title="조회하기"
                     submit={true}
+                    styles={{ fontSize : "15px", height : "50px", width : "150px",
+                            borderRadius : "25px"
+                    }}
+                    isSubmit={formState.isValid}
+                    submitStyles={{ backgroundColor : "rgb(87, 114, 255)", color : "white" }}
+                    hoverEvent={true}
+                    hoverStyles={{ filter : "drop-shadow(2px 4px 12px black)" }}
                 />
             </ButtonWrapper>
         </SearchWrapper>
