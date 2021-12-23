@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Modal, message } from "antd";
 import "antd/dist/antd.css"
 
 export const antdModals = ( type : string, message : string,
@@ -21,4 +21,9 @@ export const antdModals = ( type : string, message : string,
             onOk : confirmData?.onOk
         })
     }
+}
+
+export const antdMessage = ( type : string, messageStr : string ) => {
+    // @ts-ignore
+    message[type](messageStr);
 }

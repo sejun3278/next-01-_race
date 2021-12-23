@@ -2,6 +2,8 @@ export interface PropsTypes {
     type : string
     title : string
     notice : string
+    complate : boolean
+    result : string
 }
 
 export interface IProps {

@@ -5,7 +5,7 @@ import ButtonComponents from "../../../common/components/functions/button";
 import { antdModals } from "../../../common/libraries/antd";
 
 export default function BackLoginComponents() {
-    const { moveLoginPage, saveUserInfo, resetUserInfo } = useContext(HomeContext)
+    const { moveLoginPage, saveUserInfo, resetUserInfo, loginPage } = useContext(HomeContext)
 
     const backLoginPage = () => {
         if( saveUserInfo.email ) {
@@ -26,17 +26,19 @@ export default function BackLoginComponents() {
 
     return(
         <>
-            <ButtonComponents 
-                title="Login"
-                styles={{ border : "none", backgroundColor : "white", color : 'black', fontSize : "18px", marginBottom : "0px" }}
-                reverse={true}
-                icon={`/images/commons/arrow/arrow_left_black.png`}
-                iconStyles={{ width : '12px', height : '12px', marginRight : "8px" }}
-                wrapperStyle={{ height : '40px' }}
-                clickEvent={backLoginPage}
-                responsiveStyles={{ fontSize : "14px" }}
-                responsiveIconStyles={{ width : "8px", height : "8px" }}
-            />
+            {loginPage !== "/login" &&
+                <ButtonComponents 
+                    title="Login"
+                    styles={{ border : "none", backgroundColor : "white", color : 'black', fontSize : "18px", marginBottom : "0px" }}
+                    reverse={true}
+                    icon={`/images/commons/arrow/arrow_left_black.png`}
+                    iconStyles={{ width : '12px', height : '12px', marginRight : "8px" }}
+                    wrapperStyle={{ height : '40px' }}
+                    clickEvent={backLoginPage}
+                    responsiveStyles={{ fontSize : "14px" }}
+                    responsiveIconStyles={{ width : "8px", height : "8px" }}
+                />
+            }
         </>
     )
 }
