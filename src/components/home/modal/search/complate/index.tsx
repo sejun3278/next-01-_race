@@ -24,7 +24,7 @@ export default function SearchComplateResultPage({
 }
 
 const ComplateWrapper = styled.div`
-    padding : 30px 0px;
+    padding : 15px 0px;
 `
 
 const EmailResult = styled.div`

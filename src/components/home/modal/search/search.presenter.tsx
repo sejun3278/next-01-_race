@@ -32,7 +32,7 @@ function SearchUIComponent({
             />
             <Notice dangerouslySetInnerHTML={{ __html : props.notice }}/>
 
-            <InputWrapper type={props.type}>
+            <InputWrapper type={props.type} complate={props.complate}>
                 {props.type === "email" && props.complate === false
                     ? <SearchEmailPage 
                             onChange={setValue}
