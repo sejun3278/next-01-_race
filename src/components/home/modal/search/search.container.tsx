@@ -7,7 +7,7 @@ import { loginApi } from "src/common/api/login.api";
 import { SaveUserInfo } from "src/common/components/GlobalContext/globalContext";
 import { useState } from "react";
 
-export default function searchContainerPage({
+export default function SearchContainerPage({
     moveLoginPage,
     loginPage
 } : ContextTypes) {
