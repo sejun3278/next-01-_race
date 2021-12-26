@@ -13,7 +13,7 @@ export const OptionalWrapper = styled.div`
 export const Remarks = styled.h4`
     font-size : 15px;
     line-height : 25px;
-    margin-bottom : 20px;
+    margin-bottom : 30px !important;
 
     u {
         font-weight : 700;

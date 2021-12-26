@@ -68,7 +68,7 @@ const TitleWrapper = styled.div`
 `
 
 export const FormInfoWrapper = styled.div`
-    padding-top : 50px;
+    padding-top : 40px;
     display : flex;
     flex-direction : column;
     align-items : center;
