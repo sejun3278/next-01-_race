@@ -75,7 +75,7 @@ export const FormInfoWrapper = styled.div`
 
     @media ${breakPoints.mobile} {
         padding-top : 30px;
-
+        //
         input {
             height : 40px;
             margin : 0px;
